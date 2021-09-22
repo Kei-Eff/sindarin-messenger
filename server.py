@@ -17,5 +17,14 @@ print("Server is waiting for incoming connections...")
 s.listen(1)
 
 conn, addr = s.accept()
+
+s.listen()
 print(addr, "has connected to the server and is now online...")
 print("")
+
+while 1:
+    
+    incoming_message = conn.recv(1024)
+    conn.send(incoming_message)
+    print("Message has been sent...")
+    print("")
