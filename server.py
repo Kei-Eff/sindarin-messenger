@@ -1,9 +1,21 @@
 import socket
+import sys
+import time
 
-server_socket = socket.socket(AF_INET, socket.SOCK_STREAM)
-server_socket.bind("127.0.0.1", 65432)
-server_socket.listen()
+host = socket.gethostname()
+s = socket.socket()
+print("Server will start on host:", host)
 
-print("Listening... test, test, test...")
+port = 8080
 
-server_socket.close()
+s.bind((host, port))
+print("")
+print("Server done binding to host and port successfully")
+print("")
+print("Server is waiting for incoming connections...")
+
+s.listen(1)
+
+conn, addr = s.accept()
+print(addr, "has connected to the server and is now online...")
+print("")
