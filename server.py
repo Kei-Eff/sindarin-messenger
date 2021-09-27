@@ -1,5 +1,6 @@
 import socket
 import requests
+import json
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -21,18 +22,18 @@ while True:
     print(original_message)
 
     # translate to target language
-    url = "https://elvish.p.rapidapi.com/sindarin.json"
+    url = "https://api.funtranslations.com/translate/sindarin.json"
 
-    querystring = {"text": "{original_message}"}
+    querystring = {
+        "text": original_message
+        }
 
-    headers = {
-        'x-rapidapi-host': "elvish.p.rapidapi.com",
-        'x-rapidapi-key': "cd788f8a40msh8521eb366d07abdp16c66fjsn5ab319342906"
-    }
+    response = requests.request("POST", url, data=querystring)
 
-    response = requests.request("POST", url, headers=headers, params=querystring)
+    response_json = response.json()
+    contents = response_json["contents"]
+    message = contents["translated"]
 
-    message = response.text
     # end
 
     print(message)
