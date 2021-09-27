@@ -1,20 +1,5 @@
-import socket
-
-
-class Client:
-    pass
-
-class EstablishConnection:
-    pass
-
-class SendMessage:
-    pass
-
-class Translator:
-    pass
-
-class DisplayMessageThread:
-    pass
-
-class CloseConnection:
-    pass
+import sys
+  
+print("This is the name of the program:", sys.argv[0])
+  
+print("Argument List:", str(sys.argv))

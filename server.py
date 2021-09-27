@@ -1,30 +1,42 @@
 import socket
-import sys
-import time
+import requests
 
-host = socket.gethostname()
-s = socket.socket()
-print("Server will start on host:", host)
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-port = 8080
+server_socket.bind(("127.0.0.1", 65432))
+server_socket.listen()
+print("Listening for incoming connection...")
 
-s.bind((host, port))
-print("")
-print("Server done binding to host and port successfully")
-print("")
-print("Server is waiting for incoming connections...")
+connection, address = server_socket.accept()
+print("Connection established. Suilad!")
 
-s.listen(1)
+while True:
+    data = connection.recv(1024)
 
-conn, addr = s.accept()
+    if not data:
+        break
 
-s.listen()
-print(addr, "has connected to the server and is now online...")
-print("")
-
-while 1:
+    original_message = data.decode('utf-8')
     
-    incoming_message = conn.recv(1024)
-    conn.send(incoming_message)
-    print("Message has been sent...")
-    print("")
+    print(original_message)
+
+    # translate to target language
+    url = "https://elvish.p.rapidapi.com/sindarin.json"
+
+    querystring = {"text": "{original_message}"}
+
+    headers = {
+        'x-rapidapi-host': "elvish.p.rapidapi.com",
+        'x-rapidapi-key': "cd788f8a40msh8521eb366d07abdp16c66fjsn5ab319342906"
+    }
+
+    response = requests.request("POST", url, headers=headers, params=querystring)
+
+    message = response.text
+    # end
+
+    print(message)
+
+    connection.sendall(message.encode('utf-8'))
+
+server_socket.close()

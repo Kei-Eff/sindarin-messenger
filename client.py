@@ -1,23 +1,18 @@
 import socket
+import os
 import sys
 import time
 
-s = socket.socket()
-host = input(str("Please enter the hostname of the server: "))
-port = 8080
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.connect((host, port))
-print("Eithel govannen, mellon! Welcome to Sindarin Messenger!")
+client_socket.connect(("127.0.0.1", 65432))
 
-while 1:
-    message = input(str(">> "))
-    message = message.encode()
+message_to_send = input("Eithel govannen, mellon!\nWhat message would you like to send?\n")
 
-    s.send(message)
-    print("Message has been sent...")
-    print("")
-    
-    incoming_message = s.recv(1024)
-    incoming_message = incoming_message.decode()
-    print("Server: ", incoming_message)
-    print("")
+client_socket.sendall(message_to_send.encode('utf-8'))
+
+received_message = client_socket.recv(1024)
+
+print(received_message.decode('utf-8'))
+
+client_socket.close()

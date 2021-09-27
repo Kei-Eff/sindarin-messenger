@@ -19,3 +19,11 @@ In the future, adding functionality to display the _"Tengwar"_ script can be add
 Below is the flowchart that shows how the program will run; including how it handles input/output, error handling, the app's dependancies:
 
 ![Flowchart for the Sindarin Messenger app](./src/sindarin_messenger_flowchart_v1.png)
+
+## Application Structure
+
+### Classes and Class Methods
+
+### Functions
+
+### Error Handling
