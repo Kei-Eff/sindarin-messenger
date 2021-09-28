@@ -1,19 +1,9 @@
-import socket
+# imports
 
-class Client:
-    pass
+# get the argument from the cmd
+if server
+    translator = Translator()
+    translator.wait_for_connections()
 
-class EstablishConnection:
-    pass
-
-class SendMessage:
-    pass
-
-class Translator:
-    pass
-
-class DisplayMessageThread:
-    pass
-
-class CloseConnection:
-    pass
+    while True
+        message = translator.receive()

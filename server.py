@@ -1,43 +1,62 @@
 import socket
 import requests
-import json
 
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-server_socket.bind(("127.0.0.1", 65432))
-server_socket.listen()
-print("Listening for incoming connection...")
-
-connection, address = server_socket.accept()
-print("Connection established. Suilad!")
-
-while True:
-    data = connection.recv(1024)
-
-    if not data:
-        break
-
-    original_message = data.decode('utf-8')
+class Server:
+    def __init__(self):
+        self.server_socket = None
+        self.create_listening_server()
     
-    print(original_message)
+    #listen for incoming connection
+    def create_listening_server(self):
+    
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create a socket using TCP port and ipv4
+        local_ip = '127.0.0.1'
+        local_port = 65432
 
-    # translate to target language
-    url = "https://api.funtranslations.com/translate/sindarin.json"
+        self.server_socket.bind((local_ip, local_port))
+        print("Listening for incoming messages..")
+        self.server_socket.listen() #listen for incomming connections
 
-    querystring = {
-        "text": original_message
-        }
+    def receive_messages(self):
+        connection, address = self.server_socket.accept()
+        print("Connection to {address} established. Suilad!")
 
-    response = requests.request("POST", url, data=querystring)
+        while True:
+            data = connection.recv(1024)
 
-    response_json = response.json()
-    contents = response_json["contents"]
-    message = contents["translated"]
+            if not data:
+                break
 
-    # end
+            received_message = data.decode('utf-8')
+            
+            print(received_message)
 
-    print(message)
+            sindarin_translator = Translator()
+            translated_message = sindarin_translator.translate(received_message)
 
-    connection.sendall(message.encode('utf-8'))
+            print(translated_message)
+            return translated_message
+
+    def send_messages(self, message):
+        pass
+
+class Translator:
+    def __init__(self):
+        pass
+
+    def translate(self, text):
+        # translate to target language
+        url = "https://api.funtranslations.com/translate/sindarin.json"
+
+        querystring = {
+            "text": text
+            }
+
+        response = requests.request("POST", url, data=querystring)
+
+        response_json = response.json()
+        contents = response_json["contents"]
+        translation = contents["translated"]
+        return translation
 
 server_socket.close()
