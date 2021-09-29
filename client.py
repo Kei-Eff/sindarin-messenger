@@ -1,7 +1,5 @@
 import socket
 import os
-import sys
-import time
 
 class TranslationClient:
     def __init__(self):
@@ -15,10 +13,11 @@ class TranslationClient:
         self.client_socket.connect(("127.0.0.1", 65432))
 
         print("Eithel govannen, mellon!")
+        print("Enter the message you want translated.")
 
     def get_input(self):
 
-        message_to_send = input("What message would you like translated?\n")
+        message_to_send = input(">> ")
         return message_to_send
 
     def send_message_to_translate(self, message_to_send):
@@ -45,5 +44,9 @@ while True:
     translated_output = translation_client.receive_translation()
 
     print(translated_output)
+    
+    if translated_output.startswith("Too Many Requests"):
+        break
+
 
 translation_client.disconnect()

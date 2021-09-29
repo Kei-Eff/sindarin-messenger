@@ -51,9 +51,14 @@ class Translator:
         response = requests.request("POST", self.url, data=querystring)
 
         response_json = response.json()
-        contents = response_json["contents"]
-        translation = contents["translated"]
-        return translation
+        print(response_json)
+
+        if "error" in response_json:
+            return (response_json["error"]["message"], True)
+        else:
+            contents = response_json["contents"]
+            translation = contents["translated"]
+            return (translation, False)
 
 class SindarinTranslator(Translator):
      def __init__(self):
@@ -74,7 +79,10 @@ while True:
     if message == "/exit":
         break
 
-    translation = translator.translate(message)
+    translation, is_error = translator.translate(message)
     translation_server.send_message(translation)
+
+    if is_error:
+        break
 
 translation_server.close_server()
