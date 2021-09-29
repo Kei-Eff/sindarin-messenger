@@ -1,6 +1,7 @@
 import socket
 import os
 
+
 class TranslationClient:
     def __init__(self):
         self.client_socket = None
@@ -44,7 +45,6 @@ while True:
     translated_output = translation_client.receive_translation()
 
     print(translated_output)
-    
     if translated_output.startswith("Too Many Requests"):
         break
 

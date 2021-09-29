@@ -1,21 +1,21 @@
 import socket
 import requests
 
+
 class MessageServer:
     def __init__(self):
         self.server_socket = None
         self.create_listening_server()
-    
-    #listen for incoming connection
+
+    # listen for incoming connection
     def create_listening_server(self):
-    
-        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create a socket using TCP port and ipv4
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         local_ip = '127.0.0.1'
         local_port = 65432
 
         self.server_socket.bind((local_ip, local_port))
         print("Listening for incoming messages..")
-        self.server_socket.listen() #listen for incoming connections
+        self.server_socket.listen()
 
         self.connection, address = self.server_socket.accept()
         print(f"Connection to {address} established. Suilad!")
@@ -27,7 +27,7 @@ class MessageServer:
             return
 
         received_message = data.decode('utf-8')
-        
+
         print(received_message)
         return received_message
 
@@ -60,12 +60,11 @@ class Translator:
             translation = contents["translated"]
             return (translation, False)
 
+
 class SindarinTranslator(Translator):
-     def __init__(self):
+    def __init__(self):
         Translator.__init__(self, "https://api.funtranslations.com/translate/sindarin.json")
 
-
-# main program
 
 translation_server = MessageServer()
 translator = SindarinTranslator()
