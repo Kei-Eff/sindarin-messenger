@@ -1,6 +1,5 @@
 import socket
 import requests
-import errno
 
 class MessageServer:
     def __init__(self):
