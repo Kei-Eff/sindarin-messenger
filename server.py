@@ -90,7 +90,9 @@ class Translator:
 
 # Class for Sindarin language.
 # Tested to also work with Quenya API. Open to adding more in the future.
+# TODO: Add Class for Quenya Translator.
 # TODO: Add function to determine user's translation choice.
+# TODO: Optional. Add Orcish and Klingon Translator options.
 class SindarinTranslator(Translator):
     """Class that inherits from Translator.
     Provides access to the Sindarin translation API.

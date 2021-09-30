@@ -1,2 +1,2 @@
-# sindarin-messenger
-English-to-Sindarin Messenger App
+# sindarin-translator
+A simple English-to-Sindarin (Tolkien Elvish) translator Python program.
