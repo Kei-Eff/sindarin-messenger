@@ -54,16 +54,22 @@ class MessageServer:
 class Translator:
     """Class that translates a message received by the server."""
     def __init__(self, url):
+        """Initialises the Translator.
+
+        Args:
+            url (str): URL of the translation API
+        """
         self.url = url
 
     def translate(self, text):
         """Function that translates text.
 
         Args:
-            text (str): Text from 
+            text (str): Translated text from the json file.
 
         Returns:
-            (str): 
+            str: Translated message if no error evaluated
+            str: Error message if error evaluated
         """
         querystring = {
             "text": text
@@ -82,9 +88,13 @@ class Translator:
             return (translation, False)
 
 
-# Class for Sindarin language. Tested to work with Quenya API, and open to adding more.
-# Will need to add function to main() to determine user's translation choice.
+# Class for Sindarin language.
+# Tested to also work with Quenya API. Open to adding more in the future.
+# TODO: Add function to determine user's translation choice.
 class SindarinTranslator(Translator):
+    """Class that inherits from Translator.
+    Provides access to the Sindarin translation API.
+    """
     def __init__(self):
         URL = "https://api.funtranslations.com/translate/sindarin.json"
 
@@ -92,6 +102,7 @@ class SindarinTranslator(Translator):
 
 
 def main():
+    """Function that starts the program."""
 
     translation_server = MessageServer()
     translator = SindarinTranslator()
@@ -102,7 +113,7 @@ def main():
         if not message:
             continue
 
-        if message == "/exit":
+        if message == "/quit":
             break
 
         translation, is_error = translator.translate(message)

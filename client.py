@@ -1,5 +1,4 @@
 import socket
-import os
 
 
 class TranslationClient:
@@ -19,7 +18,7 @@ class TranslationClient:
         self.client_socket.connect(("127.0.0.1", 65432))
 
         print("Eithel govannen, mellon!")
-        print("Enter the message you want translated.")
+        print("Enter the message you want translated. Type '/quit' to quit.")
 
     def get_input(self):
         """Function that returns the user's input. Takes in no arguments.
@@ -43,7 +42,7 @@ class TranslationClient:
         """Function that receives translated message via the client socket.
 
         Returns:
-            str: The translated text
+            str: The translated text.
         """
         received_message = self.client_socket.recv(1024)
 
@@ -57,7 +56,7 @@ class TranslationClient:
 def main():
     """Main program loop that asks for user input, sends input to the server.
     Receives and prints translated message from the server.
-    Loop will run until the user inputs '/exit' or reaches API request limit.
+    Loop will run until the user inputs '/quit' or reaches API request limit.
     """
 
     translation_client = TranslationClient()
@@ -66,7 +65,7 @@ def main():
         user_input = translation_client.get_input()
         translation_client.send_message_to_translate(user_input)
 
-        if user_input == "/exit":
+        if user_input == "/quit":
             break
 
         translated_output = translation_client.receive_translation()
