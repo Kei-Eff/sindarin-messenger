@@ -3,15 +3,16 @@ import os
 
 
 class TranslationClient:
-    """Client that connects to the server and sends a message for translation.
+    """Client that communicates with a translation server.
     """
     def __init__(self):
+        """Initialises client socket and connects to server.
+        """
         self.client_socket = None
         self.connect_to_server()
 
     def connect_to_server(self):
-        """Creates socket and gets IP address of the server.
-        """
+        """Creates socket and connects to the server."""
 
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -24,7 +25,7 @@ class TranslationClient:
         """Function that returns the user's input. Takes in no arguments.
 
         Returns:
-            The user's input.
+            str: The user's input.
         """
 
         message_to_send = input(">> ")
@@ -34,23 +35,22 @@ class TranslationClient:
         """Function that sends a message via the client socket.
 
         Args:
-            message (string): The message to be sent.
+            message (str): The message to be sent.
         """
         self.client_socket.sendall(str(message).encode('utf-8'))
 
     def receive_translation(self):
-        """Client connects to the server. Sends a message and waits for a response.
+        """Function that receives translated message via the client socket.
 
         Returns:
-            received_message: The translated text
+            str: The translated text
         """
         received_message = self.client_socket.recv(1024)
 
         return received_message.decode('utf-8')
 
     def disconnect(self):
-        """Function closes client socket.
-        """
+        """Function closes client socket."""
         self.client_socket.close()
 
 
@@ -60,7 +60,6 @@ def main():
     Loop will run until the user inputs '/exit' or reaches API request limit.
     """
 
-    # Create a TranslationClient object.
     translation_client = TranslationClient()
 
     while True:
