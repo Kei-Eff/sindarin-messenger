@@ -104,7 +104,9 @@ class SindarinTranslator(Translator):
 
 
 def main():
-    """Function that starts the program."""
+    """Function that starts the program.
+    Program exits on client '/quit' prompt or API request limit.
+    """
 
     translation_server = MessageServer()
     translator = SindarinTranslator()

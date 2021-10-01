@@ -54,8 +54,7 @@ class TranslationClient:
 
 
 def main():
-    """Main program loop that asks for user input, sends input to the server.
-    Receives and prints translated message from the server.
+    """Function starts the program.
     Loop will run until the user inputs '/quit' or reaches API request limit.
     """
 
