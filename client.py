@@ -17,7 +17,7 @@ class TranslationClient:
 
         self.client_socket.connect(("127.0.0.1", 65432))
 
-        print("Eithel govannen, mellon!")
+        print("Eithel govannen, mellon! Well met, friend!")
         print("Enter the message you want translated. Type '/quit' to quit.")
 
     def get_input(self):
@@ -27,7 +27,7 @@ class TranslationClient:
             str: The user's input.
         """
 
-        message_to_send = input(">> ")
+        message_to_send = input("\n>> ")
         return message_to_send
 
     def send_message_to_translate(self, message):

@@ -17,7 +17,7 @@ This application is designed as a simple translator service that runs between a 
 
 Below is the flowchart that shows the control flow for the translator.
 
-![Flowchart for the Sindarin Messenger app](./sindarin-translator-flowchart-v3.png)
+![Flowchart for the Sindarin Messenger app](./sindarin-translator-flowchart-v4.png)
 
 ### Classes and Class Methods
 
